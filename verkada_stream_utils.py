@@ -12,8 +12,6 @@ from dotenv import load_dotenv, set_key
 #     return response.json()['jwt']
 STREAM_TIME = 3600  # seconds
 RESOLUTION = 'high_res'
-ORG_ID = 'a3c31a05-62b0-4d33-be6a-a2a4098ceabe'
-CAMERA_ID = '175da6ac-b1d3-4e2a-8166-9b72139f1d1f'
 
 
 def get_new_jwt(streaming_api_key: str):
@@ -57,14 +55,3 @@ def get_cv2_capture_object(streaming_api_key, org_id, camera_id):
     streaming_url = get_streaming_url(org_id=org_id, jwt=jwt, camera_id=camera_id)
     stream = cv2.VideoCapture(streaming_url)
     return stream
-
-
-def main():
-    load_dotenv(override=True)
-    streaming_api_key = os.environ.get('VERKADA_STREAMING_API_KEY')
-    stream = get_cv2_capture_object(streaming_api_key, ORG_ID, CAMERA_ID)
-    print(stream)
-
-
-if __name__ == '__main__':
-    main()
