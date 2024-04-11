@@ -13,10 +13,10 @@ CONF_THRESHOLD = 0.5
 def main():
     load_dotenv(override=True)
     streaming_api_key = os.environ.get('VERKADA_STREAMING_API_KEY')
-    stream = get_cv2_capture_object(streaming_api_key, ORG_ID, CAMERA_ID)
     model = YOLO(f'models/{MODEL_NAME}')
 
     while True:
+        stream = get_cv2_capture_object(streaming_api_key, ORG_ID, CAMERA_ID)
         ret, frame = stream.read()
         results = model.predict(conf=CONF_THRESHOLD, source=frame)
         cv2.imshow('Live Stream', results[0].plot())
