@@ -66,12 +66,24 @@ def get_event_types(api_key):
     return response.json()['event_types']
 
 
+def delete_all_event_types(api_key):
+    event_types = get_event_types(api_key)
+    for et in event_types:
+        delete_event_type(api_key, et['event_type_uid'])
+    print("Deleted all event types")
+
+
+def delete_event_type(api_key, event_type_uid):
+    url = f"https://api.verkada.com/cameras/v1/video_tagging/event_type?event_type_uid={event_type_uid}"
+    headers = {"x-api-key": api_key}
+    response = requests.delete(url, headers=headers)
+    return response
+
+
 def main():
-    CAMERA_ID = '8a945cc7-b6df-467a-a065-bd4c551ad36a'
     load_dotenv(override=True)
     api_key = os.environ.get('VERKADA_API_KEY')
-    cur_epoch_time_ms = time.time() * 1000
-    print(add_event(api_key, 'test', CAMERA_ID, cur_epoch_time_ms, count=1))
+    delete_all_event_types(api_key)
 
 
 if __name__ == '__main__':
