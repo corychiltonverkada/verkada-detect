@@ -21,6 +21,7 @@ def main():
     model = YOLO(f'models/{MODEL_NAME}')
 
     while True:
+        stream = get_cv2_capture_object(streaming_api_key, ORG_ID, CAMERA_ID)
         ret, frame = stream.read()
         results = model.predict(conf=CONF_THRESHOLD, source=frame)
         class_list = results[0].boxes.cls.tolist()
