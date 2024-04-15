@@ -2,14 +2,8 @@ import requests
 import os
 import time
 import cv2
-from dotenv import load_dotenv, set_key
+from dotenv import set_key
 
-# def get_streaming_token(api_key: str):
-#     token_url = "https://api.verkada.com/cameras/v1/footage/token"
-#     expiration = 3600
-#     headers = {"Content-Type": 'application/json', "x-api-key": api_key}
-#     response = requests.get(f"{token_url}?expiration={expiration}", headers=headers)
-#     return response.json()['jwt']
 STREAM_TIME = 3600  # seconds
 RESOLUTION = 'high_res'
 
