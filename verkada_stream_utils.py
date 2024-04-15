@@ -2,7 +2,7 @@ import requests
 import os
 import time
 import cv2
-from dotenv import load_dotenv, set_key
+from dotenv import set_key
 
 STREAM_TIME = 3600  # seconds
 RESOLUTION = 'high_res'
