@@ -71,7 +71,7 @@ def main():
     load_dotenv(override=True)
     api_key = os.environ.get('VERKADA_API_KEY')
     cur_epoch_time_ms = time.time() * 1000
-    print(add_event(api_key, 'Person', CAMERA_ID, cur_epoch_time_ms, count=1))
+    print(add_event(api_key, 'test', CAMERA_ID, cur_epoch_time_ms, count=1))
 
 
 if __name__ == '__main__':
