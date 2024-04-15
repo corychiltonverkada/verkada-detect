@@ -18,6 +18,10 @@ def main():
     streaming_api_key = os.environ.get('VERKADA_STREAMING_API_KEY')
     api_key = os.environ.get('VERKADA_API_KEY')
     model = YOLO(f'models/{MODEL_NAME}')
+    print('Class names: \n', model.names)
+    classes_to_report = input('Which classes would you like to report on (comma separated): ')
+    classes_to_report = classes_to_report.split(',')
+    classes_to_report = set([int(cls) for cls in classes_to_report])
     while True:
         stream = get_cv2_capture_object(streaming_api_key, ORG_ID, CAMERA_ID)
         ret, frame = stream.read()
@@ -29,7 +33,8 @@ def main():
         class_map = results[0].names
         cur_epoch_time_ms = int(time.time() * 1000)
         for cls, cnt in class_count.items():
-            print(class_map[cls], cnt)
+            if cls not in classes_to_report:
+                continue
             cls_name = class_map[cls]
             add_event(api_key, cls_name, CAMERA_ID, cur_epoch_time_ms, cnt)
         if cv2.waitKey(1) & 0xff == ord('q'):
