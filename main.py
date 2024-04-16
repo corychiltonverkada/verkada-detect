@@ -9,15 +9,16 @@ from collections import Counter
 from helix_utils import add_event
 from email_utils import send_email
 
-"""
-USER INPUTS
-"""
+############################################################
+# USER INPUTS
+############################################################
 ORG_ID = 'a3c31a05-62b0-4d33-be6a-a2a4098ceabe'
 CAMERA_ID = '8a945cc7-b6df-467a-a065-bd4c551ad36a'
 MODEL_NAME = 'yolov8n.pt'
 CONF_THRESHOLD = 0.5
 EMAIL = 'cory.chilton@verkada.com'
-
+PHONE_NUMBER = '6503395381'
+############################################################
 
 def main():
     load_dotenv(override=True)

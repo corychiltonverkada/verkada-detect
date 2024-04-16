@@ -21,4 +21,4 @@ def send_email(gmail_app_password, receiver_email, subject, body):
         server.login(sender_email, gmail_app_password)
         # Send the email
         server.sendmail(sender_email, receiver_email, message.as_string())
-        print("Email sent successfully.")
+        print("Email sent successfully")
