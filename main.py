@@ -8,6 +8,7 @@ from verkada_stream_utils import get_cv2_capture_object
 from collections import Counter
 from helix_utils import add_event
 from email_utils import send_email
+from sms_utils import send_sms
 
 ############################################################
 # USER INPUTS
@@ -20,11 +21,13 @@ EMAIL = 'cory.chilton@verkada.com'
 PHONE_NUMBER = '6503395381'
 ############################################################
 
+
 def main():
     load_dotenv(override=True)
     streaming_api_key = os.environ.get('VERKADA_STREAMING_API_KEY')
     api_key = os.environ.get('VERKADA_API_KEY')
     gmail_app_password = os.environ.get('GMAIL_APP_PASSWORD')
+    textbelt_api_key = os.environ.get('TEXTBELT_API_KEY')
     model = YOLO(f'models/{MODEL_NAME}')
     print('Class names: \n', model.names)
     classes_to_report = input('\nWhich classes would you like to report on (comma separated): ')
@@ -45,12 +48,16 @@ def main():
                 continue
             cls_name = class_map[cls]
             add_event(api_key, cls_name, CAMERA_ID, cur_epoch_time_ms, cnt)
-            subject = f'{cls_name.title()} Detected!'
+            subject = f'Verkada Detect Alert: {cls_name.title()} Detected!'
             body = (
                 f'{cls_name[0].upper() + cls_name[1:].lower()} detected at '
                 f'{datetime.datetime.now().strftime("%H:%M on %m/%d/%Y")}'
             )
             send_email(gmail_app_password, EMAIL, subject, body)
+            print('Email sent successfully')
+            message = f'Verkada Detect Alert:\n{body}'
+            sms_resp = send_sms(textbelt_api_key, PHONE_NUMBER, message)
+            print(f'Text sent successfully (texts remaining: {sms_resp['quotaRemaining']})')
         if cv2.waitKey(1) & 0xff == ord('q'):
             break
 
