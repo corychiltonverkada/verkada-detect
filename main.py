@@ -14,9 +14,9 @@ from utils import print_file
 ############################################################
 # USER INPUTS
 ############################################################
-ORG_ID = 'a3c31a05-62b0-4d33-be6a-a2a4098ceabe'
-CAMERA_ID = '8a945cc7-b6df-467a-a065-bd4c551ad36a'
-MODEL_NAME = 'bear-bestv2.pt'
+ORG_ID = '413c1d1a-d8d6-4ef6-9b2c-df18cd9acf8f'
+CAMERA_ID = 'ee981666-d5c6-49af-8c64-66430afd07ad'
+MODEL_NAME = 'guns-knives-3.pt'
 CONF_THRESHOLD = 0.7
 EMAIL = 'cory.chilton@verkada.com'
 PHONE_NUMBER = '6503395381'
